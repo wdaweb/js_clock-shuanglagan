@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha256-3dkvEK0WLHRJ7/Csr0BZjAWxERc5WH7bdeUya2aXxdU= sha512-+L4yy6FRcDGbXJ9mPG8MT/3UCDzwR9gPeyFNMCtInsol++5m3bk2bXWKdZjvybmohrAsn3Ua5x8gfLnbE1YkOg==" crossorigin="anonymous">
+    <title>時鐘</title>
+    <style>
+        #whole {
+            width: 500px;
+            height: 500px;
+            /* background-image: url(./ios_clock.svg); */
+            /* background: no-repeat; */
+            background: #FFF;
+            top: 200px;
+            margin: auto;
+            position: relative;
+            /* clip-path: polygon(50% 0%, 50% 0%, 50% 0%); */
+            display: flex;
+        }
+
+        #clock {
+            width: 200px;
+            height: 200px;
+            background-color: #FFF;
+            border-radius: 50%;
+            margin: auto;
+            position: relative;
+            justify-content: center;
+            /* clip-path: polygon(50% 0%, 50% 0%, 50% 0%); */
+        }
+
+        #hour {
+            width: 20%;
+            height: 4px;
+            border-radius: 5px;
+            background: #FFF;
+            position: absolute;
+            top: calc(50% - 2px);
+            left: 50%;
+            transform-origin: left center;
+        }
+
+        #minute {
+            width: 40%;
+            height: 4px;
+            border-radius: 5px;
+            background: #FFF;
+            position: absolute;
+            top: calc(50% - 2px);
+            left: 50%;
+            transform-origin: left center;
+        }
+
+        #second {
+            width: 45%;
+            height: 4px;
+            border-radius: 5px;
+            background: pink;
+            position: absolute;
+            top: calc(50% - 2px);
+            left: 50%;
+            transform-origin: left center;
+            z-index: 1;
+        }
+
+        #bg {
+            width: 200px;
+            height: 200px;
+            background-color: blueviolet;
+            border-radius: 50%;
+            margin: auto;
+            position: absolute;
+            clip-path: polygon(50% 0%, 50% 0%, 50% 0%);
+
+        }
+
+        .nums {
+            width: 70%;
+            height: 20px;
+            font-size: 25px;
+            position: absolute;
+            top: calc(50% - 10px);
+            left: 50%;
+            transform-origin: left center;
+            z-index: 1;
+            opacity: 1;
+            /* position: relative; */
+        }
+
+        .nums div {
+            top: 0;
+            right: 0;
+            position: absolute;
+        }
+
+        #showNum {
+            top: 200px;
+            left: 48%;
+            position: relative;
+            justify-content: center;
+            border: 5px solid green;
+        }
+        /* coptright */
+        .cc{
+            position: relative;
+            top: 200px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+
+    <!-- btn:顯示/隱藏 數字 -->
+    <!-- btn:顯示/隱藏 目前指針範圍的數字 -->
+    <input type="button" value="數字" id="showNum">
+    <div id="whole">
+        <div id="clock">
+            <div class="nums">
+                <div>1</div>
+            </div>
+            <div class="nums">
+                <div>2</div>
+            </div>
+            <div class="nums">
+                <div>3</div>
+            </div>
+            <div class="nums">
+                <div>4</div>
+            </div>
+            <div class="nums">
+                <div>5</div>
+            </div>
+            <div class="nums">
+                <div>6</div>
+            </div>
+            <div class="nums">
+                <div>7</div>
+            </div>
+            <div class="nums">
+                <div>8</div>
+            </div>
+            <div class="nums">
+                <div>9</div>
+            </div>
+            <div class="nums">
+                <div>10</div>
+            </div>
+            <div class="nums">
+                <div>11</div>
+            </div>
+            <div class="nums">
+                <div>12</div>
+            </div>
+            <div id="hour"></div>
+            <div id="minute"></div>
+            <div id="second"></div>
+            <div id="bg"></div>
+        </div>
+        
+    </div>
+      <!-- copyright -->
+    <p class="cc"style="text-align: center;">&copy; Made with 🤯&💛 by Shuanglagan</p>
+    
+    <script>
+        const hour = document.getElementById('hour')
+        const minute = document.getElementById('minute')
+        const second = document.getElementById('second')
+        const clock = document.getElementById('clock')
+        const nums = document.getElementsByClassName('nums')
+
+        const update = () => {
+            const now = new Date()
+            let hhx = Math.sin(now.getHours() * 30 * Math.PI / 180) * 100 / 2
+            let mmx = Math.sin(now.getMinutes() * 6 * Math.PI / 180) * 100 / 2
+            let ssx = Math.sin(now.getSeconds() * 6 * Math.PI / 180) * 100 / 2
+            let hhy = (1 - Math.cos(now.getHours() * 30 * Math.PI / 180)) * 100 / 2
+            let mmy = (1 - Math.cos(now.getMinutes() * 6 * Math.PI / 180)) * 100 / 2
+            let ssy = (1 - Math.cos(now.getSeconds() * 6 * Math.PI / 180)) * 100 / 2
+            // console.log(hhx, hhy, mmx, mmy, ssx, ssy);
+
+
+
+            hour.style.transform = `rotate(${now.getHours() * 30 - 90}deg)`
+            minute.style.transform = `rotate(${now.getMinutes() * 6 - 90}deg)`
+            second.style.transform = `rotate(${now.getSeconds() * 6 - 90}deg)`
+            bg.style.clipPath = `polygon(${50 + hhx}% ${0 + hhy}%, ${50 + mmx}% ${0 + mmy}%, 50% 50%)`
+
+        }
+
+        setInterval(update, 1000)
+        update()
+
+
+        // for (let i = 0; i < 12; i++) {
+        //     let numx = Math.sin(i * 30 * Math.PI / 180) * 100 / 2
+        //     let numy = Math.abs((Math.cos(i * 30 * Math.PI / 360)) * 100 / 2)
+
+
+        //     nums[i].style.transform = `translate(${numx}%, ${numy}%)`
+        //     console.log(nums[i]);
+
+        // }
+
+        for (let i = 0; i < nums.length; i++) {
+            nums[i].style.transform = `rotate(${360 / 12 * i - 60}deg)`
+            console.log(nums[i].getElementsByTagName('span')[0]);
+            nums[i].getElementsByTagName('div')[0].style.transform = `rotate(${360 - (360 / 12 * i - 60)}deg)`
+        }
+
+        showNum.onclick = () => {
+
+            for (num of nums) {
+                num.style.display = num.style.display === 'none' ? 'block' : 'none'
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>
